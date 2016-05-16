@@ -1,6 +1,9 @@
----root
+---
 - name: Create helga user
   user: name=helga comment="Helga"
+
+- name: Create helga directory
+  file: path=/etc/helga state=directory mode=0755
 
 - name: Generate the settings file
   template: src=settings.py.j2
@@ -9,8 +12,15 @@
             group=helga
             mode=640
 
-- name: pip install requirements
-  pip: requirements=requirements.txt
+- name: pip copy requirements.txt
+  template: src=requirements.txt
+            dest=/etc/helga/requirements.txt
+            owner=helga
+            group=helga
+            mode=640
+
+- name: pip install requirements.txt
+  pip: requirements=/etc/helga/requirements.txt
   become: True
 
 - name: Generate the supervisord file
