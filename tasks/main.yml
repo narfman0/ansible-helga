@@ -1,0 +1,11 @@
+---root
+- name: Install the python-software-properties utility
+  package: name=python-software-properties state=latest
+
+- name: Generate the settings file
+  template: src=settings.py.j2
+            dest=/etc/helga/settings.py
+            owner=helga
+            group=helga
+            mode=640
+  notify: Restart Helga
