@@ -1,17 +1,37 @@
-OPERATORS = ['admin']
+SERVER = {
+    'HOST': '{{ helga_server_host }}',
+    'PORT': {{ helga_server_port }},
+    'TYPE': '{{ helga_server_type }}',
+}
 
-ENABLED_PLUGINS = [
-    'dubstep',
-    'facts',
-    'help',
-    'loljava',
-    'manager',
-    'meant_to_say',
-    'operator',
-    'poems',
-    'reminders',
-    'stfu',
-    'webhooks',
-    'giphy',
-    'log-reader',
-]
+NICK = '{{ helga_nick }}'
+
+CHANNELS = {{ helga_channels }}
+
+#: A boolean indicating if the bot automatically reconnect on connection lost
+AUTO_RECONNECT = {{ helga_auto_reconnect }}
+
+#: An integer for the time, in seconds, to delay between reconnect attempts
+AUTO_RECONNECT_DELAY = {{ helga_reconnect_delay }}
+
+#: IRC Only. An integer indicating the rate limit, in seconds, for messages sent over IRC.
+#: This may help to prevent flood, but may degrade the performance of the bot, as it applies
+#: to every message sent to IRC.
+RATE_LIMIT = {{ helga_rate_limit }}
+
+#: A list of chat nicks that should be considered operators/administrators
+OPERATORS = {{ helga_operators }}
+
+#: A list of plugin names that should be loaded by the plugin manager. This effectively serves
+#: as a mechanism for explicitly including plugins that have been installed on the system.
+#: If this value is True, the plugin manager will load any plugin configured with an entry
+#: point and make it available for use. If it is None, or an empty list, no plugins will be loaded.
+#: See :ref:`plugins` for more information.
+ENABLED_PLUGINS = {{ helga_enabled_plugins }}
+
+#: A list of plugin names that should NOT be loaded by the plugin manager. This effectively serves
+#: as a mechanism for explicitly excluding plugins that have been installed on the system.
+#: If this value is True, the plugin manager will NOT load any plugin configured with an entry
+#: point. If it is None, or an empty list, no plugins will be blacklisted.
+#: See :ref:`plugins` for more information.
+DISABLED_PLUGINS = {{ helga_disabled_plugins }}

@@ -1,6 +1,6 @@
 ---root
-- name: Install the python-software-properties utility
-  package: name=python-software-properties state=latest
+- name: Create helga user
+  user: name=helga comment="Helga"
 
 - name: Generate the settings file
   template: src=settings.py.j2
@@ -8,4 +8,14 @@
             owner=helga
             group=helga
             mode=640
-  notify: Restart Helga
+
+- name: pip install requirements
+  pip: requirements=requirements.txt
+  become: True
+
+- name: Generate the supervisord file
+  template: src=helga.ini.j2
+          dest=/etc/supervisord.d/helga.ini
+          owner=root
+          group=root
+          mode=640

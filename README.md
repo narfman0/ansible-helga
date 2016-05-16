@@ -8,6 +8,12 @@ Installation
 
 Install with ``ansible-galaxy install narfman0.helga``
 
+TODO
+
+* Make supervisord conf
+* Make helga settings.py
+* Vagrantfile (optional)
+
 License
 -------
 
