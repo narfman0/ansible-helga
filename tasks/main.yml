@@ -8,6 +8,7 @@
     - openssl
     - libssl-dev
     - supervisor
+    - mongodb
   become: True
 
 - name: Install packages (rhel)
@@ -61,5 +62,5 @@
           group=root
           mode=640
 
-- name: Restart supervisord
-  service: name=supervisord state=restarted
+- name: Restart supervisor
+  service: name=supervisor state=restarted

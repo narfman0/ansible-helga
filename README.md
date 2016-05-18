@@ -10,7 +10,7 @@ Install with ``ansible-galaxy install narfman0.helga``
 
 TODO
 
-* Mongo
+* Mongo on RPM based distros
 * Vagrantfile (optional)
 
 License
