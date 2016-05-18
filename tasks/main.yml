@@ -1,18 +1,40 @@
 ---
+- name: Install packages (debian)
+  when: ansible_os_family == 'Debian'
+  package: name={{ item }} state=latest
+  with_items:
+    - python-dev
+    - libffi-dev
+    - openssl
+    - libssl-dev
+    - supervisor
+  become: True
+
+- name: Install packages (rhel)
+  when: ansible_os_family != 'Debian'
+  package: name={{ item }} state=latest
+  with_items:
+    - python-devel
+    - libffi-devel
+    - openssl
+    - openssl-devel
+    - supervisor
+  become: True
+
 - name: Create helga user
   user: name=helga comment="Helga"
 
 - name: Create helga directory
   file: path=/etc/helga state=directory mode=0755
 
-- name: Generate the settings file
+- name: Generate settings file
   template: src=settings.py.j2
             dest=/etc/helga/settings.py
             owner=helga
             group=helga
             mode=640
 
-- name: pip copy requirements.txt
+- name: Copy requirements.txt
   template: src=requirements.txt
             dest=/etc/helga/requirements.txt
             owner=helga
@@ -23,9 +45,21 @@
   pip: requirements=/etc/helga/requirements.txt
   become: True
 
-- name: Generate the supervisord file
+- name: Generate supervisord file (debian)
+  when: ansible_os_family == 'Debian'
+  template: src=helga.ini.j2
+          dest=/etc/supervisor/conf.d/helga.ini
+          owner=root
+          group=root
+          mode=640
+
+- name: Generate supervisord file (rhel)
+  when: ansible_os_family != 'Debian'
   template: src=helga.ini.j2
           dest=/etc/supervisord.d/helga.ini
           owner=root
           group=root
           mode=640
+
+- name: Restart supervisord
+  service: name=supervisord state=restarted
