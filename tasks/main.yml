@@ -36,7 +36,7 @@
             mode=640
 
 - name: Copy requirements.txt
-  template: src=requirements.txt
+  template: src=requirements.txt.j2
             dest=/etc/helga/requirements.txt
             owner=helga
             group=helga

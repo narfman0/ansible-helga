@@ -35,3 +35,5 @@ ENABLED_PLUGINS = {{ helga_enabled_plugins }}
 #: point. If it is None, or an empty list, no plugins will be blacklisted.
 #: See :ref:`plugins` for more information.
 DISABLED_PLUGINS = {{ helga_disabled_plugins }}
+
+{{ helga_settings|join('\n') }}

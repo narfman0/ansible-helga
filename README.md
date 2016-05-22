@@ -10,6 +10,7 @@ Install with ``ansible-galaxy install narfman0.helga``
 
 TODO
 
+* Use virtualenv
 * Mongo on RPM based distros
 * Vagrantfile (optional)
 

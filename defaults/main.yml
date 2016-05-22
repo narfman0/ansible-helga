@@ -9,3 +9,10 @@ helga_rate_limit: None
 helga_operators: []
 helga_enabled_plugins: True
 helga_disabled_plugins: []
+helga_requirements:
+  - helga-giphy
+  - helga-isup
+  - helga-meant-to-say
+  - helga-reminders
+  - helga-stfu
+helga_settings: []
