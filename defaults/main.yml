@@ -1,8 +1,10 @@
 helga_server_host: 'localhost'
 helga_server_port: 6667
 helga_server_type: 'irc'
+helga_server_username: ''
+helga_server_password: ''
 helga_nick: 'helga'
-helga_channels: [('#bots',),]
+helga_channels: ['#bots',]
 helga_auto_reconnect: True
 helga_reconnect_delay: 5
 helga_rate_limit: None
@@ -10,9 +12,9 @@ helga_operators: []
 helga_enabled_plugins: True
 helga_disabled_plugins: []
 helga_requirements:
-  - helga-giphy
   - helga-isup
   - helga-meant-to-say
   - helga-reminders
   - helga-stfu
+helga_path: "/etc/helga/"
 helga_settings: []

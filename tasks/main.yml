@@ -26,24 +26,24 @@
   user: name=helga comment="Helga"
 
 - name: Create helga directory
-  file: path=/etc/helga state=directory mode=0755
+  file: path={{ helga_path }} state=directory mode=0755
 
 - name: Generate settings file
   template: src=settings.py.j2
-            dest=/etc/helga/settings.py
+            dest={{ helga_path }}settings.py
             owner=helga
             group=helga
             mode=640
 
 - name: Copy requirements.txt
   template: src=requirements.txt.j2
-            dest=/etc/helga/requirements.txt
+            dest={{ helga_path }}requirements.txt
             owner=helga
             group=helga
             mode=640
 
 - name: pip install requirements.txt
-  pip: requirements=/etc/helga/requirements.txt
+  pip: requirements={{ helga_path }}requirements.txt
   become: True
 
 - name: Generate supervisord file (debian)
