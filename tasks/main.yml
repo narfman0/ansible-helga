@@ -48,16 +48,16 @@
 
 - name: Generate supervisord file (debian)
   when: ansible_os_family == 'Debian'
-  template: src=helga.ini.j2
-          dest=/etc/supervisor/conf.d/helga.ini
+  template: src=helga.conf.j2
+          dest=/etc/supervisor/conf.d/helga.conf
           owner=root
           group=root
           mode=640
 
 - name: Generate supervisord file (rhel)
   when: ansible_os_family != 'Debian'
-  template: src=helga.ini.j2
-          dest=/etc/supervisord.d/helga.ini
+  template: src=helga.conf.j2
+          dest=/etc/supervisord.d/helga.conf
           owner=root
           group=root
           mode=640
