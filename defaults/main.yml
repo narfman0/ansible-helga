@@ -1,6 +1,7 @@
 helga_server_host: 'localhost'
 helga_server_port: 6667
 helga_server_type: 'irc'
+helga_server_ssl: False
 helga_server_username: ''
 helga_server_password: ''
 helga_nick: 'helga'
