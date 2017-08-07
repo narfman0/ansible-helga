@@ -19,4 +19,3 @@ helga_requirements:
   - helga-stfu
 helga_path: "/etc/helga/"
 helga_settings: []
-helga_settings_file: None

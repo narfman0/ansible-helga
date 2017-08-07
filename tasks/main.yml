@@ -24,6 +24,8 @@
           owner=root
           group=root
           mode=640
+  notify:
+  - Read helga
 
 - name: Generate supervisord file (rhel)
   when: ansible_os_family != 'Debian'
@@ -32,3 +34,5 @@
           owner=root
           group=root
           mode=640
+  notify:
+  - Read helga
