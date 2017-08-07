@@ -14,7 +14,7 @@ Ansible role that installs and configures Helga_.
 Installation
 ------------
 
-Install with `ansible-galaxy install narfman0.helga`
+Install with ```ansible-galaxy install narfman0.helga``
 
 License
 -------

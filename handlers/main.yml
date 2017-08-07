@@ -1,4 +1,11 @@
 ---
+- name: Supervisor changed
+  service:
+    name: supervisor
+    state: restarted
+    enabled: yes
+  become: True
+
 - name: Read helga
   supervisorctl:
     name: helga
@@ -9,11 +16,4 @@
   supervisorctl:
     name: helga
     state: restarted
-  become: True
-
-- name: Supervisor changed
-  service:
-    name: supervisor
-    state: restarted
-    enabled: yes
   become: True
