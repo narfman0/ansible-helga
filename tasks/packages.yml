@@ -1,7 +1,10 @@
 ---
 - name: Update apt (debian)
+  # The following line should be all that is necessary, but cache is messing it up
+  # apt: update_cache=yes cache_valid_time=3600
   when: ansible_os_family == 'Debian'
   apt: update_cache=yes
+  changed_when: False
   become: True
 
 - name: Install packages (debian)
@@ -13,7 +16,6 @@
     - libffi-dev
     - openssl
     - libssl-dev
-    - supervisor
     - mongodb
   become: True
 
@@ -25,5 +27,11 @@
     - libffi-devel
     - openssl
     - openssl-devel
-    - supervisor
+    - mongodb-server
   become: True
+
+- name: Install supervisor
+  package: name=supervisor state=latest
+  become: True
+  notify:
+  - Supervisor changed

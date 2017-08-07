@@ -10,3 +10,10 @@
     name: helga
     state: restarted
   become: True
+
+- name: Supervisor changed
+  service:
+    name: supervisor
+    state: restarted
+    enabled: yes
+  become: True
