@@ -31,8 +31,14 @@
 - name: Create helga user
   user: name=helga comment="Helga"
 
+- name: Check helga directory
+  stat:
+    path: "{{ helga_path }}"
+  register: helga_dir_stat_result
+
 - name: Create helga directory
   file: path={{ helga_path }} state=directory mode=0755
+  when: helga_dir_stat_result.stat.exists == False
 
 - name: Generate settings file
   template: src=settings.py.j2
@@ -41,6 +47,8 @@
             group=helga
             mode=640
   when: helga_settings_file == None
+  notify:
+  - Restart helga
 
 - name: Copy settings file
   template: src={{ helga_settings_file }}
@@ -49,6 +57,8 @@
             group=helga
             mode=640
   when: helga_settings_file != None
+  notify:
+  - Restart helga
 
 - name: Copy requirements.txt
   template: src=requirements.txt.j2
@@ -60,7 +70,8 @@
 - name: pip install requirements.txt
   pip: requirements={{ helga_path }}requirements.txt
   become: True
-  register: requirements_install
+  notify:
+  - Restart jasper
 
 - name: Generate supervisord file (debian)
   when: ansible_os_family == 'Debian'
@@ -77,8 +88,3 @@
           owner=root
           group=root
           mode=640
-
-- supervisorctl:
-    name: helga
-    state: started
-  become: True

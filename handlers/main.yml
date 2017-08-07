@@ -1,0 +1,6 @@
+---
+- name: Restart helga
+  supervisorctl:
+    name: helga
+    state: restarted
+  become: True
