@@ -1,0 +1,29 @@
+---
+- name: Update apt (debian)
+  when: ansible_os_family == 'Debian'
+  apt: update_cache=yes
+  become: True
+
+- name: Install packages (debian)
+  when: ansible_os_family == 'Debian'
+  package: name={{ item }} state=latest
+  with_items:
+    - python-dev
+    - python-pip
+    - libffi-dev
+    - openssl
+    - libssl-dev
+    - supervisor
+    - mongodb
+  become: True
+
+- name: Install packages (rhel)
+  when: ansible_os_family != 'Debian'
+  package: name={{ item }} state=latest
+  with_items:
+    - python-devel
+    - libffi-devel
+    - openssl
+    - openssl-devel
+    - supervisor
+  become: True
