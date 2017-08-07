@@ -40,6 +40,15 @@
             owner=helga
             group=helga
             mode=640
+  when: helga_settings_file == None
+
+- name: Copy settings file
+  template: src={{ helga_settings_file }}
+            dest={{ helga_path }}settings.py
+            owner=helga
+            group=helga
+            mode=640
+  when: helga_settings_file != None
 
 - name: Copy requirements.txt
   template: src=requirements.txt.j2
@@ -51,6 +60,7 @@
 - name: pip install requirements.txt
   pip: requirements={{ helga_path }}requirements.txt
   become: True
+  register: requirements_install
 
 - name: Generate supervisord file (debian)
   when: ansible_os_family == 'Debian'
@@ -68,5 +78,7 @@
           group=root
           mode=640
 
-- name: Restart supervisor
-  service: name=supervisor state=restarted
+- supervisorctl:
+    name: helga
+    state: started
+  become: True

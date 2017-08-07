@@ -1,5 +1,0 @@
-- hosts: helga
-  become: 'true'
-  become_method: 'sudo'
-  roles:
-    - narfman0.helga

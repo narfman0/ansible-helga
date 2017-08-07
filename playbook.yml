@@ -1,0 +1,9 @@
+---
+# Ansible playbook for helga
+- hosts: helga
+  become: True
+  become_method: 'sudo'
+  vars_files:
+    - defaults/main.yml
+  tasks:
+    - include: tasks/main.yml

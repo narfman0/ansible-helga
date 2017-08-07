@@ -1,11 +1,14 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-Vagrant.configure(2) do |config|
-  config.vm.box = "glenux/jessie64-lxc"
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/jessie64"
   config.vm.hostname = "helga"
-  # config.vm.network "public_network"
-  config.vm.define :helga
+  config.nfs.functional = false
+  config.vm.define :helga do |helga|
+  end
+  # Ansible provisioner.
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "provisioning/playbook.yml"
+    ansible.playbook = "playbook.yml"
+    ansible.sudo = true
   end
 end
