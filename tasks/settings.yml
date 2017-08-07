@@ -1,0 +1,20 @@
+---
+- name: Generate settings file
+  template: src=settings.py.j2
+            dest={{ helga_path }}settings.py
+            owner=helga
+            group=helga
+            mode=640
+  when: helga_settings_file is undefined
+  notify:
+  - Restart helga
+
+- name: Copy settings file
+  template: src={{ helga_settings_file }}
+            dest={{ helga_path }}settings.py
+            owner=helga
+            group=helga
+            mode=640
+  when: helga_settings_file is defined
+  notify:
+  - Restart helga

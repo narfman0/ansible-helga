@@ -13,38 +13,9 @@
   file: path={{ helga_path }} state=directory mode=0755
   when: helga_dir_stat_result.stat.exists == False
 
-- name: Generate settings file
-  template: src=settings.py.j2
-            dest={{ helga_path }}settings.py
-            owner=helga
-            group=helga
-            mode=640
-  when: helga_settings_file == None
-  notify:
-  - Restart helga
+- include: settings.yml
 
-- name: Copy settings file
-  template: src={{ helga_settings_file }}
-            dest={{ helga_path }}settings.py
-            owner=helga
-            group=helga
-            mode=640
-  when: helga_settings_file != None
-  notify:
-  - Restart helga
-
-- name: Copy requirements.txt
-  template: src=requirements.txt.j2
-            dest={{ helga_path }}requirements.txt
-            owner=helga
-            group=helga
-            mode=640
-
-- name: pip install requirements.txt
-  pip: requirements={{ helga_path }}requirements.txt
-  become: True
-  notify:
-  - Restart jasper
+- include: requirements.yml
 
 - name: Generate supervisord file (debian)
   when: ansible_os_family == 'Debian'

@@ -1,0 +1,13 @@
+---
+- name: Copy requirements.txt
+  template: src=requirements.txt.j2
+            dest={{ helga_path }}requirements.txt
+            owner=helga
+            group=helga
+            mode=640
+
+- name: pip install requirements.txt
+  pip: requirements={{ helga_path }}requirements.txt
+  become: True
+  notify:
+  - Restart helga
